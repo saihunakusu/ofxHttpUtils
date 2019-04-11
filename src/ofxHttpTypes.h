@@ -21,6 +21,7 @@ struct ofxHttpForm{
 	int method;
     std::string action;
 	std::string name;
+    std::string type;
 
     ofxHttpForm(){
     	method = OFX_HTTP_GET;

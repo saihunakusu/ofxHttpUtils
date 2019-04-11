@@ -37,11 +37,11 @@ bool ofxHttpUtils::initialized = false;
 
 // ----------------------------------------------------------------------
 ofxHttpUtils::ofxHttpUtils(){
-    timeoutSeconds = 2;
-    maxRetries = -1; // -1 means an infinite number of retries
+    timeoutSeconds = 999;
+    maxRetries = 3; // -1 means an infinite number of retries
     nbOfTries = 0;
     verbose = true;
-    sendCookies = true;
+    sendCookies = false;
     //start();
 
     if(!initialized){
@@ -273,7 +273,7 @@ ofxHttpResponse ofxHttpUtils::doPostForm(ofxHttpForm & form){
 		for(it = form.formFiles.begin(); it!=form.formFiles.end(); it++){
 			string fileName = it->second.substr(it->second.find_last_of('/')+1);
 			ofLogVerbose("ofxHttpUtils") << "adding file: " << fileName << " path: " << it->second;
-			pocoForm.addPart(it->first,new FilePartSource(it->second));
+			pocoForm.addPart(it->first,new FilePartSource(it->second, form.type));
 		}
 
         pocoForm.prepareSubmit(req);
